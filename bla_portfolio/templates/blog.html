@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}myBlog{% endblock title %}
+
+{% block style %}
+<style>
+    #blog_title{
+  color: #173b6c;
+
+}
+
+#add-blog{
+    text-align: right;
+    
+}
+
+#add-blog-link{
+    padding: 1px;
+    border: 1px solid  #173b6c ;
+    border-radius:2px ;
+    background-color: #173b6c ;
+    color: whitesmoke;
+}
+#add-blog-link:hover{
+    color:  #149ddd;
+    
+}
+
+#add-blog-link-disabled{
+  padding: 1px;
+  border: 1px solid  #dddddd;
+  border-radius:2px ;
+  background-color: #dddddd;
+  color: whitesmoke;}
+
+</style>
+{% endblock style %}
+
+{% block body %}
+
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Welcome to my blog</h2>
+        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      </div>
+
+      <div class="row">
+
+{% if not request.user.is_authenticated %}
+<p id="add-blog"><a role="/addBlog" id="add-blog-link-disabled" title="please login first" aria-disabled="true"><span> + Blogs</span></a></p>
+{% else %}
+<p id="add-blog"><a href="/addBlog" id="add-blog-link" title="add blogs"><span> + Blogs</span></a></p>
+{% endif %}
+  
+        
+
+    {% for post in posts %}
+        <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+          <h4 id="blog_title">{{post.title}}</h4>
+
+          <div class="col-lg-8" data-aos="fade-right">
+          <img src="{{ post.img.url }}" class="img-fluid" alt="no-image">
+          </div>  
+
+          <p><h6>{{post.description}}</h6></p>
+          <h6>Posted By: <b>{{post.authname }}</b></h6>
+          <h6>POsted on: <b>{{ post.timeStamp }}</b></h6>
+
+        </div>
+      
+      {% endfor %}
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
+
+{% endblock body %}

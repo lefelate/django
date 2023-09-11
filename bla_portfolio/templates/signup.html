@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}signup{% endblock title %}
+
+{% block body %}
+{% block style %}
+
+
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+crossorigin="anonymous" 
+referrerpolicy="no-referrer" 
+/>
+<style>
+    body{
+        background-color:whitesmoke ;
+    }
+</style>
+{% endblock style %}
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-5 text-white">
+            <br>
+            <h3 class="bg-secondary text-center p-1">signUp Here</h3>
+
+{% for message in messages  %}
+{% comment %} sign up message alerts {% endcomment %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+{% endfor %}
+
+            <div class="card p-1">
+                    <form action="/auth/signup/" method="post"> {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td><label for="fname"><i class="fa-regular fa-user"></i> First Name
+                                <input class="form-control" type="text" title="first name" name="fname" required>
+                            </label></td>
+                            <td><label for="lname"><i class="fa-regular fa-user"></i> Last Name
+                                <input class="form-control" type="text" title="last name" name="lname" required>
+                            </label></td>
+                        </tr>
+                    </table>
+                    <div class="mb-2">
+                      <label for="Email" class="form-label"><i class="fa-regular fa-envelope"></i> Email address</label>
+                      <input type="email" class="form-control" id="Email" name="email" title="email address" required>
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-2">
+                      <label for="Pass1" class="form-label"><i class="fa fa-key"></i> Password</label>
+                      <input type="password" class="form-control" id="Pass1" name="pass1" title="password" required>
+                    </div>
+                    <div class="mb-2">
+                      <label for="Pass2" class="form-label"><i class="fa fa-key"></i> Confirm Password</label>
+                      <input type="password" class="form-control" id="Pass2" name="pass2" title="confirm password" required>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button type="submit" class="btn btn-secondary">Submit</button>
+                    </div>
+                    <p class="mt-1">Already a User? <a href="/auth/login/">Login</a></p>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock body %}
